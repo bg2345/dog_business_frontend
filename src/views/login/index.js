@@ -1,33 +1,104 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import LoginForm from '../../components/loginForm';
-import { withAuth } from '@okta/okta-react';
+import React, { Component } from 'react'
+import './index.css'
 
-export default withAuth(class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { authenticated: null };
-    this.checkAuthentication = this.checkAuthentication.bind(this);
-    this.checkAuthentication();
-  }
-
-  async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
-    if (authenticated !== this.state.authenticated) {
-      this.setState({ authenticated });
+class Login extends Component {
+  constructor() {
+    super()
+    this.state = {
+      email: '',
+      password: '',
+      errors: {}
     }
+
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
-  componentDidUpdate() {
-    this.checkAuthentication();
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  onSubmit = async(e) => {
+    e.preventDefault()
+
+    // const user = {
+    //   email: this.state.email,
+    //   password: this.state.password
+    // }
+
+
+    let email = this.state.email;
+    let password = this.state.password;
+
+    let url = 'http://localhost:5000/api/login';
+
+    let response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        "email": email,
+        "password": password,
+      }
+    });
+
+    let data = await response.json();
+
+    console.log(data)
+
+    localStorage.setItem('usertoken', JSON.stringify(data));
+
+
+    if (data.success) {
+      alert(`${data.success}`);
+      this.props.history.push(`/profilePage`)
+    } else if (data.error) {
+      alert(`${data.error}`);
+    } else {
+      alert('Try again, sorry.');
+    }
+
   }
 
   render() {
-    if (this.state.authenticated === null) return null;
-    return this.state.authenticated ?
-
-      <Redirect to={{ pathname: '/profilePage' }} /> :
-      <LoginForm baseUrl={this.props.baseUrl} />;
-
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6 mt-5 mx-auto">
+            <form noValidate onSubmit={this.onSubmit}>
+              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+              <div className="form-group">
+                <label htmlFor="email">Email address</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  name="email"
+                  placeholder="Enter email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-lg btn-primary btn-block"
+              >
+                Sign in
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    )
   }
-});
+}
+
+export default Login

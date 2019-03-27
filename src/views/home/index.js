@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react'
+import './index.css'
 
-export default class Home extends React.Component {
+class Home extends Component {
+
   render() {
-    return <h1>Home</h1>;
+    return (
+      <div className="container">
+        <div className="jumbotron mt-5">
+          <div className="col-sm-8 mx-auto">
+            <h1 className="text-center">Kett's Pets</h1>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
+
+export default Home

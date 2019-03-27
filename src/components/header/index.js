@@ -1,68 +1,81 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { withAuth } from '@okta/okta-react';
+import React, { Component } from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import './index.css';
 
-export default withAuth(
-  class Header extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { authenticated: null };
-      this.checkAuthentication = this.checkAuthentication.bind(this);
-      this.checkAuthentication();
-    }
 
-    async checkAuthentication() {
-      const authenticated = await this.props.auth.isAuthenticated();
-      if (authenticated !== this.state.authenticated) {
-        this.setState({ authenticated });
-      }
-    }
-
-    componentDidUpdate() {
-      this.checkAuthentication();
-    }
-
-    render() {
-      if (this.state.authenticated === null) return null;
-      const authNav = this.state.authenticated ? (
-        <ul className="auth-nav">
-          <li>
-            <a
-              href="javascript:void(0)"
-              onClick={() => this.props.auth.logout()}
-            >
-              Logout
-            </a>
-          </li>
-          <li>
-            <Link to="/profilePage">Profile</Link>
-          </li>
-        </ul>
-      ) : (
-        <ul className="auth-nav">
-          <li>
-            <a
-              href="javascript:void(0)"
-              onClick={() => this.props.auth.login()}
-            >
-              Login
-            </a>
-          </li>
-          <li>
-            <Link to="/registration">Register</Link>
-          </li>
-        </ul>
-      );
-      return (
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            {authNav}
-          </ul>
-        </nav>
-      );
-    }
+class Header extends Component {
+  logOut(e) {
+    e.preventDefault()
+    localStorage.removeItem('usertoken')
+    this.props.history.push(`/`)
   }
-);
+
+  render() {
+    const loginRegLink = (
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/registration" className="nav-link">
+            Register
+          </Link>
+        </li>
+      </ul>
+    )
+
+    const userLink = (
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link to="/profilePage" className="nav-link">
+            User Account
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/schedule" className="nav-link">
+            Schedule Visit
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/home" onClick={this.logOut.bind(this)} className="nav-link">
+            Logout
+          </Link>
+        </li>
+      </ul>
+    )
+
+    return (
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded bg-blue">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarsExample10"
+          aria-controls="navbarsExample10"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+
+        <div
+          className="collapse navbar-collapse justify-content-md-center"
+          id="navbarsExample10"
+        >
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link to="/" className="nav-link">
+                Home
+              </Link>
+            </li>
+          </ul>
+          {localStorage.usertoken ? userLink : loginRegLink}
+        </div>
+      </nav>
+    )
+  }
+}
+
+export default withRouter(Header)
