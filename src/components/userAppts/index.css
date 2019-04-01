@@ -1,0 +1,9 @@
+.appts-header {
+  padding: 15px;
+  border-bottom: 1px solid black;
+}
+
+.appts-table {
+  display: block;
+  margin: 10px auto;
+}

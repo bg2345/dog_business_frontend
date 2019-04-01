@@ -1,15 +1,19 @@
-import React, { Component } from 'react'
-import './index.css'
+import React, { Component } from 'react';
+import './index.css';
+import kettspets from "../../components/images/kettspets.png";
 
 class Home extends Component {
 
   render() {
     return (
       <div className="container">
-        <div className="jumbotron mt-5">
-          <div className="col-sm-8 mx-auto">
-            <h1 className="text-center">Kett's Pets</h1>
+        <div className="jumbotron mt-5 rounded main-jumbo">
+
+          <div className="col-sm-10 mx-auto">
+            <img src={kettspets} alt="logo" className="center-img" />
+
           </div>
+
         </div>
       </div>
     )

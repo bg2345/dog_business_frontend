@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import './index.css';
+import kettspetsnavbar from "../images/kettspets.png";
 
 
 class Header extends Component {
   logOut(e) {
     e.preventDefault()
     localStorage.removeItem('usertoken')
+    localStorage.removeItem('pettoken')
     this.props.history.push(`/`)
   }
 
@@ -65,9 +67,13 @@ class Header extends Component {
           id="navbarsExample10"
         >
           <ul className="navbar-nav">
+
+          <li className="navbar-brand">
+
+          </li>
             <li className="nav-item">
               <Link to="/" className="nav-link">
-                Home
+                <img src={kettspetsnavbar} alt="logo" width="200" height="46" />
               </Link>
             </li>
           </ul>

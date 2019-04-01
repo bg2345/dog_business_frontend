@@ -42,7 +42,7 @@ class RegistrationForm extends Component {
     let city = this.state.city;
     let zip = this.state.zip;
     let phone = this.state.phone;
-    let stateUS = this.state.stateUS
+    let stateUS = 'MA'
 
     console.log(first_name, last_name, email);
 
@@ -129,9 +129,9 @@ class RegistrationForm extends Component {
               </div>
               <div className="form-group">
               <label htmlFor="stateUS">State</label>
-                                <select className="form-control" id="stateUS">
-                                <option>MA</option>
-                                <option>NH</option>
+                                <select value={this.state.stateUS} onChange={this.onChange} className="form-control" name="stateUS">
+                                <option value='MA'>MA</option>
+
                                 </select>
               </div>
               <div className="form-group">

@@ -9,3 +9,13 @@
 .container {
   margin-bottom: 100px;
 }
+
+h6 {
+  margin-top: 25px;
+}
+
+h3 {
+  color: #020f72;
+  text-decoration: underline;
+  text-decoration-color: #4286f4;
+}

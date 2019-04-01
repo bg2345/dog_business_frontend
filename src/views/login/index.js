@@ -46,6 +46,11 @@ class Login extends Component {
 
     localStorage.setItem('usertoken', JSON.stringify(data));
 
+    localStorage.getItem('usertoken', JSON.stringify(data));
+    //
+    // this.setState({ [e.target.name]: e.target.value })
+
+
 
     if (data.success) {
       alert(`${data.success}`);

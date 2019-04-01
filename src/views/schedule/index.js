@@ -8,7 +8,7 @@ class Schedule extends Component {
   render() {
     return (
       <div>
-        <h2>Schedule a visit:</h2>
+        <h2>Select your service:</h2>
         <PetCalendar />
       </div>
     )

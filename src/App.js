@@ -7,6 +7,7 @@ import RegistrationForm from './views/registration';
 import ProfilePage from './views/profilePage';
 import Header from './components/header';
 import Schedule from './views/schedule';
+import Footer from './components/footer';
 
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
             <Route exact path="/profilePage" component={ProfilePage} />
             <Route exact path="/schedule" component={Schedule} />
             </div>
+          <Footer />
         </div>
       </Router>
     );

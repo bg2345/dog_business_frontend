@@ -4,9 +4,24 @@ import './index.css';
 class Appointments extends Component {
   render() {
     return (
-        <div>
+      <div className='col-md-6 offset-4'>
+      <h4>Scheduled Appointments</h4>
+      <table className='appts-table'>
+      <thead>
+        <tr>
+          <th className='appts-header'>Pet</th>
+          <th className='appts-header'>Date</th>
+          <th className='appts-header'>Service</th>
+          <th className='appts-header'>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
 
-        </div>
+
+
+      </tbody>
+    </table>
+    </div>
     );
   }
 }
