@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Appointments from '../../components/userAppts'
 import PetForm from '../../components/petForm'
 import './index.css'
+import Checkout from '../../components/checkout'
 
 class ProfilePage extends Component {
   constructor() {
@@ -73,6 +74,7 @@ class ProfilePage extends Component {
         </div>
         <PetForm user={this.state.user_info} />
         <Appointments />
+        <Checkout />
       </div>
     )
   }

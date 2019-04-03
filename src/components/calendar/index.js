@@ -40,6 +40,9 @@ class PetCalendar extends Component {
     let year = date_sel.getFullYear()
     let hours = date_sel.getHours()
     let minutes = date_sel.getMinutes()
+    let pet = this.state.pet_info['pet_name']
+    let user = this.state.user_info['user_id']
+    
 
   }
 
@@ -97,7 +100,7 @@ class PetCalendar extends Component {
                               </select>
             </div>
             <div className="form-group">
-            <label htmlFor="selection">Duration (in minutes):</label>
+            <label htmlFor="selection">Duration (in minutes) / $25.00 per 30 mins.</label>
                               <select className="form-control" id="service">
                               <option>30</option>
                               <option>60</option>

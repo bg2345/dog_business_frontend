@@ -23,7 +23,7 @@ class PetForm extends Component {
 
     console.log(pet_name);
 
-    let url = 'http://localhost:5000/api/save_pet';
+    let url = 'https://kettspetts-backend.herokuapp.com/api/save_pet';
 
     let response = await fetch(url, {
       headers: {

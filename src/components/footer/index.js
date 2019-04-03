@@ -18,7 +18,7 @@ const Footer = () => {
             <h5 className="title">Get in touch to set up a meeting!</h5>
             <ul>
               <li className="list-unstyled">
-                1.(857).231.1041
+                <a href="tel:18572311041">857.231.1041</a>
               </li>
               <li className="list-unstyled">
                 <a href="mailto:kettspets@gmail.com">kettspets@gmail.com</a>

@@ -4,7 +4,7 @@ import './index.css';
 class Appointments extends Component {
   render() {
     return (
-      <div className='col-md-6 offset-4'>
+      <div className='col-md-6 offset-3'>
       <h4>Scheduled Appointments</h4>
       <table className='appts-table'>
       <thead>
@@ -13,6 +13,7 @@ class Appointments extends Component {
           <th className='appts-header'>Date</th>
           <th className='appts-header'>Service</th>
           <th className='appts-header'>Notes</th>
+          <th className='appts-header'>Price</th>
         </tr>
       </thead>
       <tbody>

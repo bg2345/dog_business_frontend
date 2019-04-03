@@ -30,7 +30,7 @@ class Login extends Component {
     let email = this.state.email;
     let password = this.state.password;
 
-    let url = 'http://localhost:5000/api/login';
+    let url = 'https://kettspetts-backend.herokuapp.com/api/login';
 
     let response = await fetch(url, {
       headers: {

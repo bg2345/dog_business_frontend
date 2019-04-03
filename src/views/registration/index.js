@@ -46,7 +46,7 @@ class RegistrationForm extends Component {
 
     console.log(first_name, last_name, email);
 
-    let url = 'http://localhost:5000/api/register';
+    let url = 'https://kettspetts-backend.herokuapp.com/api/register';
 
     let response = await fetch(url, {
       headers: {
