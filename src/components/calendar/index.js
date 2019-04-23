@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
+import { withRouter } from 'react-router-dom'
 
 import "react-datepicker/dist/react-datepicker.css";
 import './index.css';
@@ -13,7 +14,9 @@ class PetCalendar extends Component {
       pet_name: '',
       user_info: {},
       pet_info: {},
-      time: {}
+      time: {},
+      service: 'Walk',
+      duration: '30'
     };
     this.handleChange = this.handleChange.bind(this);
     this.onChange = this.onChange.bind(this)
@@ -29,12 +32,23 @@ class PetCalendar extends Component {
     });
   }
 
+  handleSelectChange = (event) => {
+    this.setState({
+      service: event.target.value
+    })
+  }
+
+  handleDurationChange = (event) => {
+    this.setState({
+      duration: event.target.value
+    })
+  }
+
   onSubmit = async(e) => {
     e.preventDefault()
 
     let date_sel = this.state.startDate
     console.log(date_sel)
-    console.log(date_sel.getDate())
     let month = date_sel.getMonth()
     let day = date_sel.getDate()
     let year = date_sel.getFullYear()
@@ -42,8 +56,40 @@ class PetCalendar extends Component {
     let minutes = date_sel.getMinutes()
     let pet = this.state.pet_info['pet_name']
     let user = this.state.user_info['user_id']
-    
+    let service = this.state.service
+    let notes = this.state.notes
+    let duration = parseInt(this.state.duration, 10)
 
+    console.log(month, day, year, hours, minutes, pet, user)
+
+    let url = 'https://kettspetts-backend.herokuapp.com/api/save';
+
+    let response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        "user_id": user,
+        "service": service,
+        "day": day,
+        "month": month,
+        "year": year,
+        "hours": hours,
+        "minutes": minutes,
+        "notes": notes,
+        "pet": pet,
+        "duration": duration
+      }
+    });
+
+    let data = await response.json();
+
+    if (data.success) {
+      alert(`${data.success}`);
+      this.props.history.push(`/profilePage`)
+    } else if (data.error) {
+      alert(`${data.error}`);
+    } else {
+      alert('Try again, sorry.');
+    }
   }
 
   componentDidMount() {
@@ -93,18 +139,19 @@ class PetCalendar extends Component {
             </div>
             <div className="form-group">
             <label htmlFor="selection">Select Service:</label>
-                              <select className="form-control" id="service">
-                              <option>Walk</option>
-                              <option>Light Grooming</option>
-                              <option>Other (Specify in notes)</option>
+                              <select className="form-control" id="service" onChange={this.handleSelectChange}>
+                              <option value="Walk">Walk</option>
+                              <option value="Light Grooming">Light Grooming</option>
+                              <option value="Other">Other (Specify in notes)</option>
                               </select>
+
             </div>
             <div className="form-group">
             <label htmlFor="selection">Duration (in minutes) / $25.00 per 30 mins.</label>
-                              <select className="form-control" id="service">
-                              <option>30</option>
-                              <option>60</option>
-                              <option>Please call or email to book a visit longer than 1 hour</option>
+                              <select className="form-control" id="service" onChange={this.handleDurationChange}>
+                              <option value="30">30</option>
+                              <option value="60">60</option>
+                              <option value="90">Please call or email to book a visit longer than 1 hour</option>
                               </select>
             </div>
             <div className="form-group">
@@ -175,7 +222,8 @@ class PetCalendar extends Component {
             </div>
             <div className="form-group">
               <label>Notes</label>
-              <textarea type="text" className="form-control" name="notes" placeholder="Enter any other requests" />
+              <textarea type="text" className="form-control" name="notes" placeholder="Enter any other requests" value={this.state.notes}
+              onChange={this.onChange} />
             </div>
 
 
@@ -192,4 +240,4 @@ class PetCalendar extends Component {
   }
 }
 
-export default PetCalendar;
+export default withRouter(PetCalendar);

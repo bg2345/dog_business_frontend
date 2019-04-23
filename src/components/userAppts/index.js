@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import './index.css';
 
 class Appointments extends Component {
+  constructor() {
+    super()
+    this.state = {
+      events: [],
+      errors: {},
+      user_info: {},
+      pet_info:{}
+    }
+  }
+
   render() {
     return (
       <div className='col-md-6 offset-3'>
